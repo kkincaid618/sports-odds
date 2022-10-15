@@ -74,3 +74,5 @@ class PullData(object):
 
         df = self._parse_data()
         print(f'[INFO] Data has been parsed, data frame of size {len(df)} with columns: {list(df.columns)}')
+
+        return df
