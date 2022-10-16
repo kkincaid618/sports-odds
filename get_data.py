@@ -100,9 +100,12 @@ class PullData(object):
         update_ts = self.update_ts
         df = self.data
 
-        df['refresh_time'] = update_ts
+        df['refresh_time'] = to_datetime(df['refresh_time']).dt.tz_convert('US/Central')
         
         df_filtered = df[~df['book_name'].isna()]
+
+        print(df_filtered.dtypes)
+
         df_filtered = df[((df['refresh_time'] - df['game_time']) / timedelta64(1, 'm')) <= 5]
         # df_filtered = df[df['refresh_time'] >= df['game_time']]
         self.data = df_filtered
