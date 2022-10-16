@@ -39,8 +39,6 @@ class PullData(object):
         all_data = []
         raw_data = self.raw_data
         num_games = len(raw_data)
-        print(raw_data)
-        print(num_games)
 
         # Loop through each game to extract key data
         for g in range(num_games):
@@ -52,6 +50,7 @@ class PullData(object):
             
             # Loop through each book to extract prices and points
             for b in books:
+                print(b)
                 book_name = b['title']
                 book_update = b['last_update']
 
