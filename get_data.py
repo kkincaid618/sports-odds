@@ -88,26 +88,21 @@ class PullData(object):
 
         self.data = df
 
-    def _calculate_update_ts(self):        
-        now = datetime.now(timezone('US/Central'))
-        now = now.strftime("%Y-%m-%d %H:%M:%S")
+    def _calculate_update_ts(self):
+        df = self.data
 
-        self.update_ts = now
+        now = datetime.now(timezone('US/Central'))
+        df['refresh_time'] = now
+
+        self.data = df
 
     def _filter_data(self):
         self._calculate_update_ts()
 
-        update_ts = self.update_ts
         df = self.data
-
-        df['refresh_time'] = to_datetime(update_ts, utc=True)
         
         df_filtered = df[~df['book_name'].isna()]
-
-        print(df_filtered.dtypes)
-
-        df_filtered = df[((df['refresh_time'] - df['game_time']) / timedelta64(1, 'm')) <= 5]
-        # df_filtered = df[df['refresh_time'] >= df['game_time']]
+        df_filtered = df_filtered[((df['refresh_time'] - df_filtered['game_time']) / timedelta64(1, 'm')) >= -5]
         self.data = df_filtered
 
     def grab_data(self):
