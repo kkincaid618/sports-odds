@@ -1,0 +1,9 @@
+{
+	"name": "odds-analysis",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3aa31147-8d34-4b74-81d5-b783a19e446f",
+		"tenantId": "632937a8-4d47-4462-9857-ffe57e479191"
+	}
+}
