@@ -70,6 +70,8 @@ class PullData(object):
                     else:
                         favored = away_team['name']
             else:
+                book_name = nan
+                book_update = nan
                 home_team_point = nan
                 away_team_point = nan
                 favored = nan
