@@ -2,6 +2,7 @@ from cmath import nan
 import requests
 from pandas import DataFrame, to_datetime
 from datetime import datetime
+from numpy import timedelta64
 from pytz import timezone
 import json
 
@@ -100,9 +101,10 @@ class PullData(object):
         df = self.data
 
         df['refresh_time'] = update_ts
+        
         df_filtered = df[~df['book_name'].isna()]
-        df_filtered = df[df['refresh_time'] >= df['game_time']]
-
+        df_filtered = df[((df['refresh_time'] - df['game_time']) / timedelta64(1, 'm')) <= 5]
+        # df_filtered = df[df['refresh_time'] >= df['game_time']]
         self.data = df_filtered
 
     def grab_data(self):
