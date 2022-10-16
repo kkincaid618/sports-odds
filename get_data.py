@@ -78,7 +78,7 @@ class PullData(object):
                 favored = nan
                 # price = nan
 
-            row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, nan, favored]
+            row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, 0, favored]
             all_data.append(row)
 
         columns = ['game_id','game_time','home_team','home_team_spread','away_team','away_team_spread','book_name','spread_updated_time','price','favored_team']
