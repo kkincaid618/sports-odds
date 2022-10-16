@@ -78,10 +78,10 @@ class PullData(object):
                 favored = nan
                 # price = nan
 
-            row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, favored]
+            row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, nan, favored]
             all_data.append(row)
 
-        columns = ['game_id','game_time','home_team','home_team_spread','away_team','away_team_spread','book_name','spread_updated_time','favored_team']
+        columns = ['game_id','game_time','home_team','home_team_spread','away_team','away_team_spread','book_name','spread_updated_time','price','favored_team']
         df = DataFrame(all_data, columns = columns)
         df['game_time'] = to_datetime(df['game_time']).dt.tz_convert('US/Central')
         print('game time converted')
