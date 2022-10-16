@@ -1,0 +1,50 @@
+{
+	"name": "pull-api-data",
+	"properties": {
+		"activities": [
+			{
+				"name": "pull-api-data",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query"
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"sport": {
+				"type": "string",
+				"defaultValue": "americanfootball_ncaaf"
+			},
+			"odds_format": {
+				"type": "string",
+				"defaultValue": "american"
+			},
+			"regions": {
+				"type": "string",
+				"defaultValue": "us"
+			},
+			"markets": {
+				"type": "string",
+				"defaultValue": "spreads"
+			},
+			"api_key": {
+				"type": "string",
+				"defaultValue": "76596681042e0510c8311d07f25ca69c"
+			}
+		},
+		"annotations": []
+	}
+}
