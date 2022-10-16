@@ -100,7 +100,7 @@ class PullData(object):
         update_ts = self.update_ts
         df = self.data
 
-        df['refresh_time'] = to_datetime(update_ts).dt.tz_convert('US/Central')
+        df['refresh_time'] = to_datetime(update_ts)
         
         df_filtered = df[~df['book_name'].isna()]
 
