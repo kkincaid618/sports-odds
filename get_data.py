@@ -1,6 +1,7 @@
 import requests
 from pandas import DataFrame, to_datetime
 from datetime import datetime
+from pytz import timezone
 import json
 
 
@@ -77,7 +78,7 @@ class PullData(object):
         self.data = df
 
     def _calculate_update_ts(self):        
-        now = datetime.now()
+        now = datetime.now(timezone('US/Central'))
         now = now.strftime("%Y-%m-%d %H:%M:%S")
 
         self.update_ts = now
@@ -89,7 +90,6 @@ class PullData(object):
         df = self.data
 
         df['refresh_time'] = update_ts
-        df['refresh_time'] = to_datetime(df['refresh_time']).dt.tz_convert('US/Central')
         df_filtered = df[df['refresh_time'] >= df['game_time']]
 
         self.data = df_filtered
