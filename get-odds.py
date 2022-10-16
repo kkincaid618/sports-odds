@@ -15,4 +15,4 @@ df = puller.grab_data()
 # COMMAND ----------
 
 spark_df = spark.createDataFrame(df)
-spark_df.write.mode("append").saveAsTable("ncaa_odds")
+spark_df.write.mode("append").saveAsTable("nfl_odds")
