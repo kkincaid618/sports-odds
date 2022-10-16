@@ -1,5 +1,6 @@
 import requests
-from pandas import DataFrame
+from pandas import DataFrame, to_datetime
+from datetime import now
 import json
 
 
@@ -53,7 +54,7 @@ class PullData(object):
 
                 markets = b['markets'][0]
                 price = markets['outcomes'][0]['price']
-                spread = abs(markets['outcomes'][0]['point'])
+                # spread = abs(markets['outcomes'][0]['point'])
                 
                 home_team = markets['outcomes'][0]
                 away_team = markets['outcomes'][1]
@@ -63,22 +64,37 @@ class PullData(object):
                 else:
                     favored = away_team['name']
 
-            row = [game_id, game_time, game_home, game_away, book_name, book_update, favored, price, spread]
+            row = [game_id, game_time, game_home, game_away, book_name, book_update, price, home_team, away_team, favored]
             all_data.append(row)
 
-        columns = ['game_id','game_time','home_team','away_team','book_name','spread_updated_time','favored_team','price','spread'] # Feed in?
+        columns = ['game_id','game_time','home_team','away_team','book_name','spread_updated_time','price','home_team_spread','away_team_spread','favored_team']
         df = DataFrame(all_data, columns = columns)
+        df['game_time'] = to_datetime(df['game_time']).dt.tz_convert('US/Central')
 
-        return df
+        self.data = df
+
+    def _calculate_update_ts(self):        
+        now = now()
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
+
+        self.update_ts = now
+
+    def _filter_data(self):
+        self._calculate_update_ts()
+
+        update_ts = self.update_ts
+        df = self.data
+
+        df['refresh_time'] = update_ts
+        df_filtered = df[df['refresh_time'] >= df['game_time']]
+
+        self.data = df_filtered
 
     def grab_data(self):
         self._calculate_request()
-        print(f'[INFO] Request Calculated: {self.url}')
         
         self._get_data()
-        print(f'[INFO] Request Succeeded: {len(self.raw_data)} games pulled')
 
-        df = self._parse_data()
-        print(f'[INFO] Data has been parsed, data frame of size {len(df)} with columns: {list(df.columns)}')
+        self._parse_data()
 
-        return df
+        return self.data
