@@ -16,6 +16,7 @@ class PullData(object):
         self.regions = 'us'
         self.odds_format = 'american'
         self.sports = 'americanfootball_ncaaf'
+        self.api_key = api_key
 
     def _calculate_request(self):
         base_url = 'https://api.the-odds-api.com'
