@@ -67,10 +67,10 @@ class PullData(object):
                 else:
                     favored = away_team['name']
 
-            row = [game_id, game_time, game_home, game_away, book_name, book_update, price, home_team_point, away_team_point, favored]
+            row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, price, favored]
             all_data.append(row)
 
-        columns = ['game_id','game_time','home_team','away_team','book_name','spread_updated_time','price','home_team_spread','away_team_spread','favored_team']
+        columns = ['game_id','game_time','home_team','home_team_spread','away_team','away_team_spread','book_name','spread_updated_time','price','favored_team']
         df = DataFrame(all_data, columns = columns)
         df['game_time'] = to_datetime(df['game_time']).dt.tz_convert('US/Central')
 
@@ -99,5 +99,7 @@ class PullData(object):
         self._get_data()
 
         self._parse_data()
+
+        self._filter_data()
 
         return self.data
