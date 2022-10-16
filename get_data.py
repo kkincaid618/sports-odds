@@ -59,12 +59,15 @@ class PullData(object):
                 home_team = markets['outcomes'][0]
                 away_team = markets['outcomes'][1]
 
-                if home_team['point'] < away_team['point']:
+                home_team_point = home_team['point']
+                away_team_point = away_team['point']
+
+                if home_team_point < away_team_point:
                     favored = home_team['name']
                 else:
                     favored = away_team['name']
 
-            row = [game_id, game_time, game_home, game_away, book_name, book_update, price, home_team, away_team, favored]
+            row = [game_id, game_time, game_home, game_away, book_name, book_update, price, home_team_point, away_team_point, favored]
             all_data.append(row)
 
         columns = ['game_id','game_time','home_team','away_team','book_name','spread_updated_time','price','home_team_spread','away_team_spread','favored_team']
