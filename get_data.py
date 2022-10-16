@@ -19,7 +19,7 @@ class PullData(object):
         self.markets = 'spreads'
         self.regions = 'us'
         self.odds_format = 'american'
-        self.sports = 'americanfootball_ncaaf'
+        self.sports = 'americanfootball_nfl'
         self.api_key = api_key
 
     def _calculate_request(self):
