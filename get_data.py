@@ -1,6 +1,6 @@
 import requests
 from pandas import DataFrame, to_datetime
-from datetime import now
+from datetime import datetime
 import json
 
 
@@ -74,7 +74,7 @@ class PullData(object):
         self.data = df
 
     def _calculate_update_ts(self):        
-        now = now()
+        now = datetime.now()
         now = now.strftime("%Y-%m-%d %H:%M:%S")
 
         self.update_ts = now
