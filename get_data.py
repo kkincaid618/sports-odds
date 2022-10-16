@@ -100,6 +100,7 @@ class PullData(object):
         df = self.data
 
         df['refresh_time'] = update_ts
+        df_filtered = df[~df['book_name'].isna()]
         df_filtered = df[df['refresh_time'] >= df['game_time']]
 
         self.data = df_filtered
