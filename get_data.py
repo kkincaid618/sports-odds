@@ -1,3 +1,4 @@
+from cmath import nan
 import requests
 from pandas import DataFrame, to_datetime
 from datetime import datetime
@@ -40,7 +41,6 @@ class PullData(object):
         raw_data = self.raw_data
         num_games = len(raw_data)
 
-        print(raw_data[0])
         # Loop through each game to extract key data
         for g in range(num_games):
             game_id = raw_data[g]['id']
@@ -49,27 +49,31 @@ class PullData(object):
             game_away = raw_data[g]['away_team']
             books = raw_data[g]['bookmakers']
             
-            print(books)
+            if len(books) > 0:
             # Loop through each book to extract prices and points
-            for b in books:
-                print(b)
-                book_name = b['title']
-                book_update = b['last_update']
+                for b in books:
+                    book_name = b['title']
+                    book_update = b['last_update']
 
-                markets = b['markets'][0]
-                price = markets['outcomes'][0]['price']
-                # spread = abs(markets['outcomes'][0]['point'])
-                
-                home_team = markets['outcomes'][0]
-                away_team = markets['outcomes'][1]
+                    markets = b['markets'][0]
+                    price = markets['outcomes'][0]['price']
+                    # spread = abs(markets['outcomes'][0]['point'])
+                    
+                    home_team = markets['outcomes'][0]
+                    away_team = markets['outcomes'][1]
 
-                home_team_point = home_team['point']
-                away_team_point = away_team['point']
+                    home_team_point = home_team['point']
+                    away_team_point = away_team['point']
 
-                if home_team_point < away_team_point:
-                    favored = home_team['name']
-                else:
-                    favored = away_team['name']
+                    if home_team_point < away_team_point:
+                        favored = home_team['name']
+                    else:
+                        favored = away_team['name']
+            else:
+                home_team_point = nan
+                away_team_point = nan
+                favored = nan
+                price = nan
 
             row = [game_id, game_time, game_home, home_team_point, game_away, away_team_point, book_name, book_update, price, favored]
             all_data.append(row)
