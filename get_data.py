@@ -89,6 +89,7 @@ class PullData(object):
         df = self.data
 
         df['refresh_time'] = update_ts
+        df['refresh_time'] = to_datetime(df['refresh_time']).dt.tz_convert('US/Central')
         df_filtered = df[df['refresh_time'] >= df['game_time']]
 
         self.data = df_filtered
