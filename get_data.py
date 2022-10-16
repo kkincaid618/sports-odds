@@ -74,6 +74,7 @@ class PullData(object):
         columns = ['game_id','game_time','home_team','home_team_spread','away_team','away_team_spread','book_name','spread_updated_time','price','favored_team']
         df = DataFrame(all_data, columns = columns)
         df['game_time'] = to_datetime(df['game_time']).dt.tz_convert('US/Central')
+        df['spread_updated_time'] = to_datetime(df['spread_updated_time']).dt.tz_convert('US/Central')
 
         self.data = df
 
