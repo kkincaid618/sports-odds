@@ -40,6 +40,7 @@ class PullData(object):
         raw_data = self.raw_data
         num_games = len(raw_data)
 
+        print(raw_data[0])
         # Loop through each game to extract key data
         for g in range(num_games):
             game_id = raw_data[g]['id']
