@@ -48,6 +48,7 @@ class PullData(object):
             game_away = raw_data[g]['away_team']
             books = raw_data[g]['bookmakers']
             
+            print(books)
             # Loop through each book to extract prices and points
             for b in books:
                 print(b)
